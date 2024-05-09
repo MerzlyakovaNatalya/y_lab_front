@@ -1,8 +1,6 @@
-import { IConfig } from "../config.js"
-import Store from "./index.js" 
-import Services from "../services.js"
-import type { StoreState, IKeysModules } from "./types.js"
-
+import Store from './index.js'
+import Services from '../services.js'
+import type { IKeysModules } from './types.js'
 
 /**
  * Базовый класс для модулей хранилища
@@ -21,41 +19,35 @@ class StoreModule<State, Config = object> {
    * @param name {String}
    * @param [config] {Object}
    */
-  constructor(
-    store: Store,
-    name: IKeysModules,
-    config: Config | {} = {} 
-  ) {
+  constructor(store: Store, name: IKeysModules, config: Config | {} = {}) {
     this.store = store
     this.name = name
-    this.config = config as Config 
+    this.config = config as Config
     /** @type {Services} */
     this.services = store.services
   }
 
   initState(): State {
-    return {} as State;
+    return {} as State
   }
 
   initConfig(): Config {
-    return {} as Config;
+    return {} as Config
   }
-
 
   getState() {
-    return this.store.getState()[this.name] as State;
+    return this.store.getState()[this.name] as State
   }
 
-  setState(newState: State, description: string = "setState") {
+  setState(newState: State, description: string = 'setState') {
     this.store.setState(
       {
         ...this.store.getState(),
         [this.name]: newState,
       },
-      description
-    );
+      description,
+    )
   }
 }
 
-
-export default StoreModule;
+export default StoreModule

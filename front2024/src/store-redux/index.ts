@@ -1,5 +1,12 @@
-import {applyMiddleware, combineReducers, createStore, compose, AnyAction, StoreEnhancer} from "redux"
-import Services from "../services.js"
+import {
+  applyMiddleware,
+  combineReducers,
+  createStore,
+  compose,
+  AnyAction,
+  StoreEnhancer,
+} from 'redux'
+import Services from '../services.js'
 import thunk, { ThunkDispatch } from 'redux-thunk'
 import * as reducers from './exports'
 
@@ -9,7 +16,9 @@ declare global {
   }
 }
 
- let composeEnhancers: (arg0: StoreEnhancer<{ dispatch: ThunkDispatch<any, Services, AnyAction> }, {}>) => StoreEnhancer<unknown, {}> | undefined
+let composeEnhancers: (
+  arg0: StoreEnhancer<{ dispatch: ThunkDispatch<any, Services, AnyAction> }, {}>,
+) => StoreEnhancer<unknown, {}> | undefined
 
 if (process.env.IS_SERVER !== 'true') {
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -17,18 +26,14 @@ if (process.env.IS_SERVER !== 'true') {
   composeEnhancers = compose
 }
 
-//  const composeEnhancers = window?.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const rootReducer = combineReducers(reducers)
 
-//  const composeEnhancers = compose
-
-// export default function createStoreRedux(services: Services, config = {}){
-//   return createStore(combineReducers(reducers), undefined, composeEnhancers(applyMiddleware(thunk.withExtraArgument(services))))
-// }
-
-export default function createStoreRedux(services: Services, config = {}){
+export default function createStoreRedux(services: Services, config = {}) {
   return createStore(
-    combineReducers(reducers), 
-    undefined, 
-    applyMiddleware(thunk.withExtraArgument(services))
-    )
+    combineReducers(reducers),
+    undefined,
+    applyMiddleware(thunk.withExtraArgument(services)),
+  )
 }
+
+export type RootState = ReturnType<typeof rootReducer>

@@ -1,14 +1,10 @@
-import React, { memo, useEffect, useState } from "react"
-import { cn as bem } from "@bem-react/classname"
-import useStore from "@src/hooks/use-store"
-import "./style.css"
-import Tool from "../../tools/tool"
-import useSelector from "@src/hooks/use-selector"
-import { StoreState } from "@src/store/types"
-import Fall from "../../tools/fall"
+import React, { memo } from 'react'
+import { cn as bem } from '@bem-react/classname'
+import useStore from '@src/hooks/use-store'
+import './style.css'
 
 const SettingBar: React.FC = () => {
-  const cn = bem("Setting_bar")
+  const cn = bem('Setting_bar')
 
   const store = useStore()
 
@@ -17,7 +13,7 @@ const SettingBar: React.FC = () => {
       <label htmlFor="line-width">Толщина линии</label>
       <input
         className={cn('input')}
-        onChange={(e) => store.actions.canvas.setLineWidth(Number(e.target.value))}
+        onChange={e => store.actions.canvas.setLineWidth(Number(e.target.value))}
         id="line-width"
         type="number"
         defaultValue={1}
@@ -26,8 +22,8 @@ const SettingBar: React.FC = () => {
       />
       <label htmlFor="stroke-color">Цвет обводки</label>
       <input
-        className={cn('input', {color: true})}
-        onChange={(e) => store.actions.canvas.setStrokeColor(e.target.value)}
+        className={cn('input', { color: true })}
+        onChange={e => store.actions.canvas.setStrokeColor(e.target.value)}
         id="stroke-color"
         type="color"
       />

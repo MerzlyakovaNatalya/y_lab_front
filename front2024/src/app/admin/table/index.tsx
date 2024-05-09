@@ -1,12 +1,7 @@
-import React, { FC, memo, useCallback, useEffect, useRef, useState } from 'react'
-import useSelector from '@src/hooks/use-selector'
-import { useDispatch, useSelector as useSelectorRedux } from 'react-redux'
-import articleActions from '@src/store-redux/article/actions'
-import { IResult, StoreState } from '@src/store/types'
-import shallowequal from 'shallowequal'
+import React, { FC } from 'react'
 import useInit from '@src/hooks/use-init'
 import type { TableColumnsType } from 'antd'
-import { Button, Space, Table } from 'antd'
+import { Space, Table } from 'antd'
 import * as Icons from '@ant-design/icons'
 import useStore from '@src/hooks/use-store'
 
@@ -26,13 +21,12 @@ export interface DataType {
   price: string | number
 }
 
-const _Table: FC<ITable> = ({showDrawer, product}) => {
+const _Table: FC<ITable> = ({ showDrawer, product }) => {
   const store = useStore()
 
   useInit(async () => {
     await store.actions.catalog.initParams()
   }, [])
-
 
   const onEditProduct = (record: DataType) => {
     showDrawer(String(record.key))
@@ -92,11 +86,7 @@ const _Table: FC<ITable> = ({showDrawer, product}) => {
   ]
 
   return (
-    <>
-      {product.length && (
-        <Table columns={columns} dataSource={product} pagination={false} />
-       )} 
-    </>
+    <>{product.length && <Table columns={columns} dataSource={product} pagination={false} />}</>
   )
 }
 

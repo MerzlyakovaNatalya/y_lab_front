@@ -14,21 +14,12 @@
     "test": "jest",
     "playwright": "npx playwright test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ylabio/react-webinar-3.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ylabio/react-webinar-3/issues"
-  },
-  "homepage": "https://github.com/ylabio/react-webinar-3#readme",
   "dependencies": {
     "-": "^0.0.1",
     "@ant-design/icons": "^5.3.6",
     "@bem-react/classname": "^1.6.0",
     "@total-typescript/ts-reset": "^0.5.1",
+    "@types/react-redux": "^7.1.33",
     "antd": "^5.16.1",
     "compression": "^1.7.4",
     "express": "^4.19.1",

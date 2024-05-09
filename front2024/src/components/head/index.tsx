@@ -1,4 +1,4 @@
-import {memo, ReactNode, FC} from "react"
+import { memo, ReactNode, FC } from 'react'
 import './style.css'
 
 interface IHeadProps {
@@ -8,11 +8,11 @@ interface IHeadProps {
 
 const Head: FC<IHeadProps> = ({ title, children }) => {
   return (
-    <div className='Head'>
-      <div className='Head-place'>
-        <h1 >{title}</h1>
+    <div className="Head">
+      <div className="Head-place">
+        <h1>{title}</h1>
       </div>
-      <div className='Head-place'>{children}</div>
+      <div className="Head-place">{children}</div>
     </div>
   )
 }

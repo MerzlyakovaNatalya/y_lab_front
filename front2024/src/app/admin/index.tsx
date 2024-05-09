@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import useStore from '@src/hooks/use-store'
 import AdminLayout from '@src/components/admin'
 import useTranslate from '@src/hooks/use-translate'
@@ -181,12 +181,11 @@ const Admin = () => {
         onClickMenuSidebar={callbacks.onClickMenuSidebar}
         onSubmit={callbacks.onSubmit}
       />
-      <button
+      {/* <button
         onClick={() => callbacks.onSubmit('nameValue', 10, 'descriptionValue')}
         style={{ position: 'absolute' }}
       >
-        button
-      </button>
+      </button> */}
     </>
   )
 }

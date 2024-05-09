@@ -1,34 +1,36 @@
-import {memo} from "react"
-import {cn as bem} from '@bem-react/classname'
-import numberFormat from "@src/utils/number-format"
+import { memo } from 'react'
+import { cn as bem } from '@bem-react/classname'
+import numberFormat from '@src/utils/number-format'
 import './style.css'
 
 interface IArticleCardProps {
   article: {
-    _id: string,
-    description: string,
+    _id: string
+    description: string
     madeIn: {
-      title: string,
+      title: string
       code: string
-    } | null,
+    } | null
     category: {
       title: string
-    } | null,
-    edition: string | number,
+    } | null
+    edition: string | number
     price: number
   }
   onAdd: (id: string) => void
   t: any
 }
 
-const ArticleCard: React.FC<IArticleCardProps> = ({article, onAdd, t}) => {
+const ArticleCard: React.FC<IArticleCardProps> = ({ article, onAdd, t }) => {
   const cn = bem('ArticleCard')
   return (
     <div className={cn()}>
       <div className={cn('description')}>{article.description}</div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Страна производитель:</div>
-        <div className={cn('value')}>{article.madeIn?.title} ({article.madeIn?.code})</div>
+        <div className={cn('value')}>
+          {article.madeIn?.title} ({article.madeIn?.code})
+        </div>
       </div>
       <div className={cn('prop')}>
         <div className={cn('label')}>Категория:</div>
@@ -38,7 +40,7 @@ const ArticleCard: React.FC<IArticleCardProps> = ({article, onAdd, t}) => {
         <div className={cn('label')}>Год выпуска:</div>
         <div className={cn('value')}>{article.edition}</div>
       </div>
-      <div className={cn('prop', {size: 'big'})}>
+      <div className={cn('prop', { size: 'big' })}>
         <div className={cn('label')}>Цена:</div>
         <div className={cn('value')}>{numberFormat(article.price)} ₽</div>
       </div>

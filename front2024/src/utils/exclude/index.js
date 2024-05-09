@@ -8,19 +8,18 @@ import isPlainObject from '../is-plain-object'
  */
 export default function exclude(objectSrc, objectExc) {
   if (isPlainObject(objectSrc) && isPlainObject(objectExc)) {
-    const result = {};
-    const keys = Object.keys(objectSrc);
+    const result = {}
+    const keys = Object.keys(objectSrc)
     for (const key of keys) {
       if (objectSrc[key] !== objectExc[key]) {
         const value = exclude(objectSrc[key], objectExc[key])
-        if (typeof value !== "undefined") {
-          result[key] = value;
+        if (typeof value !== 'undefined') {
+          result[key] = value
         }
       }
     }
-    return Object.keys(result).length ? result : undefined;
+    return Object.keys(result).length ? result : undefined
   } else {
-    return objectSrc;
+    return objectSrc
   }
 }
-

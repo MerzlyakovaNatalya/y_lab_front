@@ -1,8 +1,8 @@
 import Figure from '../figure'
-import {createNoise2D} from 'simplex-noise'
-import randomItem from '@src/utils/random-item' 
+import { createNoise2D } from 'simplex-noise'
+import randomItem from '@src/utils/random-item'
 import leafsImages from '../../../../../assets/images/leaf/export'
-import roundRange from "@src/utils/round-range"
+import roundRange from '@src/utils/round-range'
 
 const maxX = 500 // По сути ширина канвы, чтобы случайное число растянуть плавно на размер канвы
 const maxY = 500
@@ -91,8 +91,8 @@ class Leaf extends Figure {
 
         // Равноускоренное перемещение за dt
         if (!this.pause) {
-          this.x += (this.vX * dt) + (this.aX * dt ** 2 / 2)
-          this.y += (this.vY * dt) + (this.aY * dt ** 2 / 2)
+          this.x += this.vX * dt + (this.aX * dt ** 2) / 2
+          this.y += this.vY * dt + (this.aY * dt ** 2) / 2
         }
         this.scale += this.aS //(this.vS * dt) + (this.aS * dt ** 2 / 2);
         this.angle += this.aA //(this.vA * dt) + (this.aA * dt ** 2 / 2);
@@ -123,7 +123,7 @@ class Leaf extends Figure {
       ctx.save()
       // rotate по центру картинки
       ctx.translate(this.x + this.width / 2, this.y + this.height / 2)
-      ctx.rotate(this.angle * Math.PI / 180)
+      ctx.rotate((this.angle * Math.PI) / 180)
       //ctx.scale(this.angleZ, 1)
       ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))
       // rect

@@ -1,4 +1,4 @@
-import * as modules from "./exports"
+import * as modules from './exports'
 interface ImadeIn {
   _id: string
   _type: string
@@ -37,18 +37,13 @@ export type StoreState = {
 }
 
 export type ConfigModules = {
-  [Key in IKeysModules as IExtendedModules<Key>]?: ReturnType<TActions[Key]["initConfig"]>;
-};
-
+  [Key in IKeysModules as IExtendedModules<Key>]?: ReturnType<TActions[Key]['initConfig']>
+}
 
 export type Actions = {
   [key in IKeysModules as IExtendedModules<key>]: InstanceType<ImportModules[key]>
 }
 
 export type TActions = {
-  [Key in IKeysModules as IExtendedModules<Key>]: Actions[Key];
-};
-
-
-
-
+  [Key in IKeysModules as IExtendedModules<Key>]: Actions[Key]
+}
