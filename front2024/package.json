@@ -11,6 +11,7 @@
     "build:client": "vite build --outDir ../dist/client --ssrManifest",
     "build:server": "vite build --outDir ../dist/server --ssr entry-server.tsx",
     "prod": "cross-env NODE_ENV=production node ./server/server.js",
+    "preview": "vite preview",
     "test": "jest",
     "playwright": "npx playwright test"
   },
