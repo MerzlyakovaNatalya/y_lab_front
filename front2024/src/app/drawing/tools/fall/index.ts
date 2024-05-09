@@ -29,11 +29,14 @@ export default class Fall extends Pointer {
     console.log('this.shapes', this.shapes)
     if (!this.shapes) return
 
+    let allFiguresReachedBottom = true
+
     this.shapes.forEach(figure => {
       if (figure.type === 'rectangle') {
         const canvasBottom = this.canvas!.height - figure.height // Нижняя граница canvas для прямоугольника
         if (figure.y < canvasBottom) {
           figure.y += 1
+          allFiguresReachedBottom = false
         }
       }
 
@@ -41,6 +44,7 @@ export default class Fall extends Pointer {
         const canvasBottom = this.canvas!.height - figure.radius // Нижняя граница canvas для круга
         if (figure.y < canvasBottom) {
           figure.y += 1 // Изменение координаты y для падения фигуры
+          allFiguresReachedBottom = false
         }
       }
 
@@ -49,6 +53,7 @@ export default class Fall extends Pointer {
         if (figure.startY < canvasBottom && figure.endY < canvasBottom) {
           figure.startY += 1 // Изменение координаты startY для падения линии
           figure.endY += 1 // Изменение координаты endY для падения линии
+          allFiguresReachedBottom = false
         }
       }
 
@@ -62,6 +67,7 @@ export default class Fall extends Pointer {
           if (point.y > maxY) {
             maxY = point.y
           }
+          allFiguresReachedBottom = false
         }
         const canvasBottom = this.canvas!.height
         if (maxY < canvasBottom) {
@@ -72,5 +78,10 @@ export default class Fall extends Pointer {
         }
       }
     })
+    // Если все фигуры достигли нижней границы, останавливаем анимацию
+    if (allFiguresReachedBottom) {
+      cancelAnimationFrame(this.animationId)
+      return // Для прекращения дальнейшего выполнения кода
+    }
   }
 }
