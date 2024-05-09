@@ -99,8 +99,8 @@ const AdminLayout: FC<IAdminLayout> = memo(
                 borderRadius: borderRadiusLG,
               }}
             >
-              <_Table showDrawer={showDrawer} product={product}/>
-              <_Drawer onClose={onCloseDrawer} open={openopenDrawer} onSubmit={onSubmit}/>
+              <_Table showDrawer={showDrawer} product={product} />
+              <_Drawer onClose={onCloseDrawer} open={openopenDrawer} onSubmit={onSubmit} />
             </Content>
           </Layout>
         </Layout>

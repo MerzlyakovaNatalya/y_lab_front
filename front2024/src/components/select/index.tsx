@@ -1,4 +1,4 @@
-import {memo, FC} from "react"
+import { memo, FC } from 'react'
 import './style.css'
 
 interface IOption {
@@ -13,15 +13,16 @@ interface ISelectProps {
 }
 
 const Select: FC<ISelectProps> = ({ options, value, onChange }) => {
-
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(e.target.value);
+    onChange(e.target.value)
   }
 
   return (
-    <select className="Select" value={value} onChange={(e) => onSelect(e)}>
+    <select className="Select" value={value} onChange={e => onSelect(e)}>
       {options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
+        <option key={item.value} value={item.value}>
+          {item.title}
+        </option>
       ))}
     </select>
   )

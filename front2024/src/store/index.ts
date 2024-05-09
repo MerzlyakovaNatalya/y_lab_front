@@ -1,18 +1,18 @@
 import * as modules from './exports'
 import { IConfig } from '../config'
-import Services from '../services' 
+import Services from '../services'
 import type { Actions, StoreState, ImportModules, IKeysModules, TActions } from './types.ts'
-import { mergeDeep } from 'immutable';
+import { mergeDeep } from 'immutable'
 
 /**
  * Хранилище состояния приложения
  */
 class Store {
   services: Services
-  config: IConfig["store"]
-  listeners: Array<((...arg: any[]) => void)>
+  config: IConfig['store']
+  listeners: Array<(...arg: any[]) => void>
   actions: Actions & Record<string, any>
-  state: StoreState  & Record<string, any>
+  state: StoreState & Record<string, any>
   // initialStateFromServer: unknown
 
   constructor(
@@ -23,7 +23,7 @@ class Store {
     // initialStateFromServer: Record<string, unknown>
   ) {
     this.services = services
-    this.config = config as IConfig["store"]
+    this.config = config as IConfig['store']
     this.listeners = [] // Слушатели изменений состояния
     this.state = {} as StoreState
     // this.initialStateFromServer = initialStateFromServer
@@ -57,7 +57,6 @@ class Store {
     this.state[name] = this.actions[name].initState() as StoreState[Key]
   }
 
-
   /**
    * Удаление копии стейта
    */
@@ -71,10 +70,10 @@ class Store {
    * @returns {Function} Функция отписки
    */
   subscribe(listener: () => void): () => void {
-    this.listeners.push(listener);
+    this.listeners.push(listener)
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter((item) => item !== listener)
+      this.listeners = this.listeners.filter(item => item !== listener)
     }
   }
 
@@ -92,29 +91,28 @@ class Store {
    * }}
    */
   getState(): StoreState {
-    return this.state as StoreState;
+    return this.state as StoreState
   }
 
   /**
    * Установка состояния
    * @param newState {Object}
    */
-  setState(newState: StoreState, description = "setState") {
+  setState(newState: StoreState, description = 'setState') {
     if (this.config.log) {
       console.group(
-        `%c${"store.setState"} %c${description}`,
-        `color: ${"#777"}; font-weight: normal`,
-        `color: ${"#333"}; font-weight: bold`
-      );
-      console.log(`%c${"prev:"}`, `color: ${"#d77332"}`, this.state);
-      console.log(`%c${"next:"}`, `color: ${"#2fa827"}`, newState);
-      console.groupEnd();
+        `%c${'store.setState'} %c${description}`,
+        `color: ${'#777'}; font-weight: normal`,
+        `color: ${'#333'}; font-weight: bold`,
+      )
+      console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state)
+      console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState)
+      console.groupEnd()
     }
-    this.state = newState;
+    this.state = newState
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener(this.state);
+    for (const listener of this.listeners) listener(this.state)
   }
 }
 
-export default Store;
-
+export default Store

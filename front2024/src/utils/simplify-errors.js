@@ -1,12 +1,12 @@
 export default function simplifyErrors(issues = {}) {
-  const result = {};
+  const result = {}
   for (const issue of issues) {
-    const key = issue.path.join('.') || 'other';
+    const key = issue.path.join('.') || 'other'
     if (result[key]) {
-      result[key].push(issue.message);
+      result[key].push(issue.message)
     } else {
       result[key] = [issue.message]
     }
   }
-  return result;
+  return result
 }

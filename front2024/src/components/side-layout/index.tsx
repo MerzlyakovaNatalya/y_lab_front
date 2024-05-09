@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, memo } from 'react'
-import {cn as bem} from '@bem-react/classname'
+import { cn as bem } from '@bem-react/classname'
 import './style.css'
 
 interface SideLayoutProps {
@@ -10,11 +10,13 @@ interface SideLayoutProps {
 }
 
 const SideLayout: FC<SideLayoutProps> = ({ children, side, padding, align }) => {
-  const cn = bem('SideLayout');
+  const cn = bem('SideLayout')
   return (
-    <div className={cn({side, padding, align})}>
+    <div className={cn({ side, padding, align })}>
       {React.Children.map(children, (child, index) => (
-        <div key={index} className={cn('item')}>{child}</div>
+        <div key={index} className={cn('item')}>
+          {child}
+        </div>
       ))}
     </div>
   )

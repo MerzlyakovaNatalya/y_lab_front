@@ -3,6 +3,5 @@
  * @returns {Function}
  */
 export default function codeGenerator(start = 0) {
-  return () => ++start;
+  return () => ++start
 }
-

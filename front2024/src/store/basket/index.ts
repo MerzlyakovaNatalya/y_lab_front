@@ -1,5 +1,5 @@
-import StoreModule from "../module"
-import { IBasketItem, ISelectedItem, IinitState, IApiResponse } from "./types"
+import StoreModule from '../module'
+import { IBasketItem, ISelectedItem, IinitState, IApiResponse } from './types'
 
 /**
  * Покупательская корзина
@@ -12,7 +12,7 @@ class BasketState extends StoreModule<IinitState> {
       amount: 0,
       quantity: 0,
       selected: [],
-    };
+    }
   }
 
   /**
@@ -23,19 +23,17 @@ class BasketState extends StoreModule<IinitState> {
     let sum = 0
     // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false
-    const list: IBasketItem[] = this.getState().list.map(
-      (item: IBasketItem) => {
-        let result = item
-        if (item._id === _id) {
-          exist = true; // Запомним, что был найден в корзине
-          amountGoods
-            ? (result = { ...item, amount: item.amount + amountGoods })
-            : (result = { ...item, amount: item.amount + 1 })
-        }
-        sum += result.price * result.amount
-        return result
+    const list: IBasketItem[] = this.getState().list.map((item: IBasketItem) => {
+      let result = item
+      if (item._id === _id) {
+        exist = true // Запомним, что был найден в корзине
+        amountGoods
+          ? (result = { ...item, amount: item.amount + amountGoods })
+          : (result = { ...item, amount: item.amount + 1 })
       }
-    )
+      sum += result.price * result.amount
+      return result
+    })
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
@@ -56,8 +54,8 @@ class BasketState extends StoreModule<IinitState> {
         amount: list.length,
         quantity: 0,
       },
-      "Добавление в корзину"
-    );
+      'Добавление в корзину',
+    )
   }
 
   /**
@@ -70,7 +68,7 @@ class BasketState extends StoreModule<IinitState> {
       if (item._id === _id) return false
       sum += item.price * item.amount
       return true
-    });
+    })
 
     this.setState(
       {
@@ -79,8 +77,8 @@ class BasketState extends StoreModule<IinitState> {
         sum,
         amount: list.length,
       },
-      "Удаление из корзины"
-    );
+      'Удаление из корзины',
+    )
   }
 
   /**
@@ -91,7 +89,7 @@ class BasketState extends StoreModule<IinitState> {
     this.setState({
       ...this.getState(),
       quantity,
-    });
+    })
   }
 
   /**
@@ -109,7 +107,7 @@ class BasketState extends StoreModule<IinitState> {
         },
       ],
       quantity: 0,
-    });
+    })
   }
 
   /**
@@ -119,9 +117,7 @@ class BasketState extends StoreModule<IinitState> {
   removeFromSelected(id: string) {
     this.setState({
       ...this.getState(),
-      selected: this.getState().selected.filter(
-        (item: ISelectedItem) => item.id !== id
-      ),
+      selected: this.getState().selected.filter((item: ISelectedItem) => item.id !== id),
     })
   }
 
@@ -140,7 +136,7 @@ class BasketState extends StoreModule<IinitState> {
     const firstSelected = selected.shift()
 
     // Добавляем товар в корзину
-    if(firstSelected) await this.addToBasket(firstSelected.id, firstSelected.quantity)
+    if (firstSelected) await this.addToBasket(firstSelected.id, firstSelected.quantity)
 
     // Рекурсивно вызываем эту же функцию для оставшихся объектов
     await this.addingSelectedProducts()

@@ -1,4 +1,4 @@
-import {memo, FC} from "react"
+import { memo, FC } from 'react'
 import './style.css'
 
 interface IControlsProps {
@@ -6,7 +6,7 @@ interface IControlsProps {
 }
 const Controls: FC<IControlsProps> = ({ onAdd }) => {
   return (
-    <div className='Controls'>
+    <div className="Controls">
       <button onClick={() => onAdd()}>Добавить</button>
     </div>
   )

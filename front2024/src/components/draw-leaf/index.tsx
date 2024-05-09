@@ -1,9 +1,8 @@
-import React, {useEffect, useMemo, useRef} from 'react'
-import Core from "./core"
+import React, { useEffect, useMemo, useRef } from 'react'
+import Core from './core'
 import './style.css'
 
 function DrawLeaf() {
-
   const dom = useRef<HTMLDivElement>(null)
   const core = useMemo(() => new Core(), [])
 
@@ -12,9 +11,7 @@ function DrawLeaf() {
     return () => core.unmount()
   }, [])
 
-  return (
-    <div className="Draw" ref={dom}/>
-  )
+  return <div className="Draw" ref={dom} />
 }
 
 export default React.memo(DrawLeaf)

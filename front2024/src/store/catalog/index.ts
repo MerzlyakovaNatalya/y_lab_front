@@ -156,7 +156,6 @@ class CatalogState extends StoreModule<IIinitCatalogState> {
    * Редактирование товара
    */
   async productEditing(product: IProduct) {
-    
     const res: IApiResponseProduct = await this.services.api.request({
       url: `/api/v1/articles/${product.id}?fields=*&lang=ru`,
       method: 'PUT',
@@ -181,16 +180,16 @@ class CatalogState extends StoreModule<IIinitCatalogState> {
         favorites: [],
       }),
     })
-    const index = this.getState().list.findIndex((item) => item._id === product.id)
+    const index = this.getState().list.findIndex(item => item._id === product.id)
 
     const copyList = this.getState().list
 
-    if(index !== -1) copyList[index] = res.data.result
+    if (index !== -1) copyList[index] = res.data.result
 
     this.setState(
       {
         ...this.getState(),
-        list: copyList
+        list: copyList,
       },
       'Товар отредактирован',
     )

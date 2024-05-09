@@ -1,15 +1,14 @@
-import StoreModule from "../module"
-import { IApiResponseUser, IProfileInitState } from "./types"
+import StoreModule from '../module'
+import { IApiResponseUser, IProfileInitState } from './types'
 
 /**
  * Детальная информация о пользователе
  */
-class ProfileState extends StoreModule<IProfileInitState > {
-
+class ProfileState extends StoreModule<IProfileInitState> {
   initState(): IProfileInitState {
     return {
       data: {},
-      waiting: false // признак ожидания загрузки
+      waiting: false, // признак ожидания загрузки
     }
   }
 
@@ -21,16 +20,21 @@ class ProfileState extends StoreModule<IProfileInitState > {
     // Сброс текущего профиля и установка признака ожидания загрузки
     this.setState({
       data: {},
-      waiting: true
+      waiting: true,
     })
 
-    const {data}: IApiResponseUser = await this.services.api.request({url: `/api/v1/users/self`})
+    const { data }: IApiResponseUser = await this.services.api.request({
+      url: `/api/v1/users/self`,
+    })
 
     // Профиль загружен успешно
-    this.setState({
-      data: data.result,
-      waiting: false
-    }, 'Загружен профиль из АПИ');
+    this.setState(
+      {
+        data: data.result,
+        waiting: false,
+      },
+      'Загружен профиль из АПИ',
+    )
   }
 }
 

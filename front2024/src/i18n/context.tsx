@@ -1,6 +1,6 @@
-import React, { createContext, useMemo, useState} from "react"
-import translate from "./translate"
-import { ILangs, IAllLangs } from "./types"
+import React, { createContext, useMemo, useState } from 'react'
+import translate from './translate'
+import { ILangs, IAllLangs } from './types'
 
 interface II18nProvide {
   children: React.ReactNode
@@ -17,13 +17,13 @@ export interface II18nContext {
  */
 export const I18nContext = createContext<II18nContext>({} as II18nContext)
 
- /**
-  * Обертка над провайдером контекста, чтобы управлять изменениями в контексте
-  * @param children
-  * @return {JSX.Element}
-  */
+/**
+ * Обертка над провайдером контекста, чтобы управлять изменениями в контексте
+ * @param children
+ * @return {JSX.Element}
+ */
 export const I18nProvider: React.FC<II18nProvide> = ({ children }) => {
-  const [lang, setLang] = useState<ILangs>("ru")
+  const [lang, setLang] = useState<ILangs>('ru')
 
   const i18n = useMemo<II18nContext>(
     () => ({
@@ -34,7 +34,7 @@ export const I18nProvider: React.FC<II18nProvide> = ({ children }) => {
       // Функция для локализации текстов с замыканием на код языка
       t: (text, number) => translate(lang, text, number),
     }),
-    [lang]
+    [lang],
   )
 
   return <I18nContext.Provider value={i18n}>{children}</I18nContext.Provider>

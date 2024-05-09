@@ -1,11 +1,10 @@
-import StoreModule from "../module"
-import { ICategoriesInitState, IApiResponseCategory } from "./types"
+import StoreModule from '../module'
+import { ICategoriesInitState, IApiResponseCategory } from './types'
 
 /**
  * Список категорий
  */
 class CategoriesState extends StoreModule<ICategoriesInitState> {
-
   /**
    * Начальное состояние
    * @return {Object}
@@ -13,27 +12,29 @@ class CategoriesState extends StoreModule<ICategoriesInitState> {
   initState(): ICategoriesInitState {
     return {
       list: [],
-      waiting: false
-    };
+      waiting: false,
+    }
   }
 
   /**
    * Загрузка списка товаров
    */
   async load() {
-    this.setState({...this.getState(), waiting: true}, 'Ожидание загрузки категорий');
+    this.setState({ ...this.getState(), waiting: true }, 'Ожидание загрузки категорий')
 
     const res: IApiResponseCategory = await this.services.api.request({
-      url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
+      url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`,
     })
     // Товар загружен успешно
-    this.setState({
-      ...this.getState(),
-      list: res.data.result.items,
-      waiting: false
-    }, 'Категории загружены');
+    this.setState(
+      {
+        ...this.getState(),
+        list: res.data.result.items,
+        waiting: false,
+      },
+      'Категории загружены',
+    )
   }
-
 }
 
-export default CategoriesState;
+export default CategoriesState

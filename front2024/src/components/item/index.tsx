@@ -1,8 +1,8 @@
-import {memo, FC} from "react"
-import {cn as bem} from '@bem-react/classname'
-import numberFormat from "@src/utils/number-format"
+import { memo, FC } from 'react'
+import { cn as bem } from '@bem-react/classname'
+import numberFormat from '@src/utils/number-format'
 import './style.css'
-import {Link} from "react-router-dom"
+import { Link } from 'react-router-dom'
 
 interface IItemProps {
   item: {
@@ -10,7 +10,7 @@ interface IItemProps {
     title: string
     price: number
     selectedGoods: boolean
-  };
+  }
   link?: string
   onOpenModal: (id: string | number) => void
   labelCurr?: string
@@ -30,7 +30,6 @@ const Item: FC<IItemProps> = ({
   handleClickButton,
   disabled = false,
 }) => {
-
   const cn = bem('Item')
 
   const callbacks = {
@@ -41,25 +40,28 @@ const Item: FC<IItemProps> = ({
     handleClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       event.stopPropagation()
       handleClickButton(item._id)
-    }
+    },
   }
-  
+
   return (
-    <div className={cn({ selected: item.selectedGoods })} onClick={(event) => callbacks.handleClick(event)}>
+    <div
+      className={cn({ selected: item.selectedGoods })}
+      onClick={event => callbacks.handleClick(event)}
+    >
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        {hideLink ? (
-          <Link to={link || ''}>{item.title}</Link>
-        ) : (
-          <span>{item.title}</span>
-        )}
+        {hideLink ? <Link to={link || ''}>{item.title}</Link> : <span>{item.title}</span>}
       </div>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(item.price)} {labelCurr}</div>
-        <button onClick={(event) => callbacks.onOpenModal(event)} disabled={disabled}>{labelAdd}</button>
+        <div className={cn('price')}>
+          {numberFormat(item.price)} {labelCurr}
+        </div>
+        <button onClick={event => callbacks.onOpenModal(event)} disabled={disabled}>
+          {labelAdd}
+        </button>
       </div>
     </div>
-  );
+  )
 }
 
 export default memo(Item)

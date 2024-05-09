@@ -1,6 +1,6 @@
-import StoreModule from "../module"
-import Tool from "@src/app/drawing/tools/tool"
-import { ICircle, IRectangle, ILine, IFreeDraw, Shape } from "./types"
+import StoreModule from '../module'
+import Tool from '@src/app/drawing/tools/tool'
+import { ICircle, IRectangle, ILine, IFreeDraw, Shape } from './types'
 
 interface ICanvasState {
   canvas: HTMLCanvasElement | null
@@ -21,9 +21,9 @@ class CanvasState extends StoreModule<ICanvasState> {
       canvas: null,
       tool: null,
       undoList: [], // Хранение выполненных действий на canvas
-      redoList: [],  // Хранение действий на canvas, которые отменили
+      redoList: [], // Хранение действий на canvas, которые отменили
       nameTool: 'freeDraw', // Название инструмента
-      figures: []
+      figures: [],
     }
   }
 
@@ -33,9 +33,9 @@ class CanvasState extends StoreModule<ICanvasState> {
   setCannvas(canvas: HTMLCanvasElement) {
     this.setState({
       ...this.getState(),
-      canvas: canvas
-  })
-}
+      canvas: canvas,
+    })
+  }
 
   /**
    * Добавление инструмента
@@ -44,31 +44,31 @@ class CanvasState extends StoreModule<ICanvasState> {
     this.setState({
       ...this.getState(),
       tool: tool,
-      nameTool: name
-  })
-}
+      nameTool: name,
+    })
+  }
 
   /**
-   * Изменение цвета 
+   * Изменение цвета
    */
   setFillColor(color: string) {
     const currentTool = this.getState().tool
     if (currentTool) currentTool.fillColor = color
     this.setState({
       ...this.getState(),
-      tool: currentTool
+      tool: currentTool,
     })
   }
 
   /**
-   * Изменение обводки 
+   * Изменение обводки
    */
   setStrokeColor(color: string) {
     const currentTool = this.getState().tool
     if (currentTool) currentTool.strokeColor = color
     this.setState({
       ...this.getState(),
-      tool: currentTool
+      tool: currentTool,
     })
   }
 
@@ -80,7 +80,7 @@ class CanvasState extends StoreModule<ICanvasState> {
     if (currentTool) currentTool.lineWidth = width
     this.setState({
       ...this.getState(),
-      tool: currentTool
+      tool: currentTool,
     })
   }
 
@@ -90,7 +90,7 @@ class CanvasState extends StoreModule<ICanvasState> {
   pushToUndo(data: any) {
     this.setState({
       ...this.getState(),
-      undoList: [...this.getState().undoList, data]
+      undoList: [...this.getState().undoList, data],
     })
   }
 
@@ -100,7 +100,7 @@ class CanvasState extends StoreModule<ICanvasState> {
   pushToRedo(data: any) {
     this.setState({
       ...this.getState(),
-      redoList: [...this.getState().redoList, data]
+      redoList: [...this.getState().redoList, data],
     })
   }
 
@@ -110,16 +110,16 @@ class CanvasState extends StoreModule<ICanvasState> {
   undo() {
     let ctx = this.getState().canvas!.getContext('2d') as CanvasRenderingContext2D
     if (this.getState().undoList.length > 0) {
-        let dataUrl = this.getState().undoList.pop() // Получаем последнее действие
-        this.getState().redoList.push(this.getState().canvas!.toDataURL())
-        const img = new Image()
-        img.src = dataUrl as string
-        img.onload = () => {
-            ctx.clearRect(0,0, this.getState().canvas!.width, this.getState().canvas!.height)
-            ctx.drawImage(img, 0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
-        }
-    } else {
+      let dataUrl = this.getState().undoList.pop() // Получаем последнее действие
+      this.getState().redoList.push(this.getState().canvas!.toDataURL())
+      const img = new Image()
+      img.src = dataUrl as string
+      img.onload = () => {
         ctx.clearRect(0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
+        ctx.drawImage(img, 0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
+      }
+    } else {
+      ctx.clearRect(0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
     }
   }
 
@@ -129,16 +129,16 @@ class CanvasState extends StoreModule<ICanvasState> {
   redo() {
     let ctx = this.getState().canvas!.getContext('2d') as CanvasRenderingContext2D
     if (this.getState().redoList.length > 0) {
-        let dataUrl = this.getState().redoList.pop()
-        this.getState().undoList.push(this.getState().canvas!.toDataURL())
-        let img = new Image()
-        img.src = dataUrl as string
-        img.onload =  () => {
-            ctx.clearRect(0,0, this.getState().canvas!.width, this.getState().canvas!.height)
-            ctx.drawImage(img, 0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
-        }
+      let dataUrl = this.getState().redoList.pop()
+      this.getState().undoList.push(this.getState().canvas!.toDataURL())
+      let img = new Image()
+      img.src = dataUrl as string
+      img.onload = () => {
+        ctx.clearRect(0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
+        ctx.drawImage(img, 0, 0, this.getState().canvas!.width, this.getState().canvas!.height)
+      }
     }
-}
+  }
 
   /**
    * Сохранение фигур
@@ -147,9 +147,9 @@ class CanvasState extends StoreModule<ICanvasState> {
     const figures = this.getState().tool!.allFiguresTool as any
     this.setState({
       ...this.getState(),
-      figures: [...this.getState().figures, ...figures]
-  })
-}
+      figures: [...this.getState().figures, ...figures],
+    })
+  }
 }
 
 export default CanvasState

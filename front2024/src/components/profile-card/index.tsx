@@ -1,5 +1,5 @@
-import {memo, FC} from "react"
-import {cn as bem} from '@bem-react/classname'
+import { memo, FC } from 'react'
+import { cn as bem } from '@bem-react/classname'
 import './style.css'
 
 interface IProfileCardProps {
